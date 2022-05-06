@@ -41,8 +41,8 @@ export function drawNode(container, node, transitions) {
       .append("text")
       .classed(this.css_classes["node_text"], true)
       .merge(labels)
-      .on("click", d=> {
-        this.handle_node_click(d);
+      .on("click", (event,d)=> {
+        this.handle_node_click(event,d);
       })
       .attr("dy", d => {
         return this.shown_font_size * 0.33;
@@ -183,8 +183,8 @@ export function drawNode(container, node, transitions) {
         .attr("r", d => {
           return Math.min(this.shown_font_size * 0.75, radius);
         })
-        .on("click", d => {
-          this.handle_node_click(d);
+        .on("click", (event,d) => {
+          this.handle_node_click(event,d);
         });
     } else {
       circles.remove();

@@ -7,7 +7,7 @@ import { predefined_selecters } from "./options";
 
 let d3_layout_phylotree_context_menu_id = "d3_layout_phylotree_context_menu";
 
-export function nodeDropdownMenu(node, container, phylotree, options) {
+export function nodeDropdownMenu(event, node, container, phylotree, options) {
   let menu_object = d3
     .select(container)
     .select("#" + d3_layout_phylotree_context_menu_id);
@@ -206,17 +206,16 @@ export function nodeDropdownMenu(node, container, phylotree, options) {
     }
 
     let tree_container = $(container); // eslint-disable-line
-    let coordinates = d3.mouse(tree_container[0]);
+    d3.pointer(event);
 
     menu_object
       .style("position", "absolute")
-      .style("left", "" + (coordinates[0] + tree_container.position().left) + "px")
-      .style("top", "" + (coordinates[1] + tree_container.position().top) + "px")
+      .style("left", "" + ( event.x + tree_container.position().left) + "px")
+      .style("top", ""  + ( event.y + tree_container.position().top) + "px")
       .style("display", "block");
-  } else {
-    menu_object.style("display", "none");
-  }
-
+    } else {
+      menu_object.style("display", "none");
+    }
 }
 
 export function addCustomMenu(node, name, callback, condition) {
