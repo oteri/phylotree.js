@@ -220,8 +220,8 @@ class TreeRender {
 
       d3.select(this.container).on(
         "click",
-        d => {
-          this.handle_node_click(null);
+        (event,d) => {
+          this.handle_node_click(event,null);
         },
         true
       );
@@ -382,8 +382,8 @@ class TreeRender {
 
       var brush_object = d3
         .brush()
-        .on("brush", d => {
-          var extent = d3.event.selection,
+        .on("brush", d => (event)=> {
+          var extent = event.selection,
             shown_links = this.links.filter(render_edges.edgeVisible);
           var selected_links = shown_links
               .filter((d, i) => {
@@ -416,7 +416,7 @@ class TreeRender {
           this.modifySelection(selected_links, "tag", false, false, "true");
 
         })
-        .on("end", () => {
+        .on("end", (event) => {
           //brush.call(d3.event.target.clear());
         });
 
@@ -1265,8 +1265,8 @@ this.do_lr();
     return this;
   }
 
-  handle_node_click(node) {
-    this.nodeDropdownMenu(node, this.container, this, this.options);
+  handle_node_click(event, node) {
+    this.nodeDropdownMenu(event, node, this.container, this, this.options);
   }
 
   refresh() {
